@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Example</title>
+    <style>
+        /* CSS for applying styles, adding/removing classes, and slider */
+        #myElement {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            margin-bottom: 20px;
+        }
+
+        .newClass {
+            color: red;
+            font-size: 20px;
+        }
+        body{
+            width: 100%;
+        }
+
+        #slider {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #slider img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Elements to demonstrate jQuery functionalities -->
+    <div id="myElement">This is a div element.</div>
+    <button id="toggleClassButton">Toggle Class</button>
+    <button id="animateButton">Animate</button>
+    <button id="fadeButton">Fade Out/In</button>
+    
+    <div id="slider">
+        <img src="./women.png" alt="Slide 1">
+        <img src="./women2.jpg" alt="Slide 2" style="display: none;">
+        <img src="./women3.jpg" alt="Slide 3" style="display: none;">
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Apply CSS using jQuery
+            $('#myElement').css({
+                'background-color': 'lightgreen',
+                'text-align': 'center'
+            });
+
+            // Add/Remove class on button click
+            $('#toggleClassButton').click(function() {
+                $('#myElement').toggleClass('newClass');
+            });
+
+            // Animation example
+            $('#animateButton').click(function() {
+                $('#myElement').animate({
+                    width: '300px',
+                    height: '150px',
+                    backgroundColor: 'lightcoral'
+                }, 1000); // Duration in milliseconds
+            });
+
+            // Fade out and fade in example
+            $('#fadeButton').click(function() {
+                $('#myElement').fadeOut(1000, function() {
+                    $(this).fadeIn(1000);
+                });
+            });
+
+            // Slider with animation
+            let currentIndex = 0;
+            const slides = $('#slider img');
+            const totalSlides = slides.length;
+
+            function showNextSlide() {
+                slides.eq(currentIndex).fadeOut(1000, function() {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    slides.eq(currentIndex).fadeIn(1000);
+                });
+            }
+
+            setInterval(showNextSlide, 3000); // Change slide every 3 seconds
+        });
+    </script>
+</body>
+</html>
